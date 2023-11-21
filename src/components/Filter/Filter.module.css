@@ -1,0 +1,18 @@
+.filterLabel {
+  display: block;
+  margin-left: 20px;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: bold;
+}
+
+.filterInput {
+  display: block;
+  margin: 10px 0px;
+  text-align: left;
+  padding: 5px 5px;
+  min-width: 375px;
+  box-sizing: border-box;
+  font-family: inherit;
+  border: 1px solid gray;
+  border-radius: 3px;
+}
