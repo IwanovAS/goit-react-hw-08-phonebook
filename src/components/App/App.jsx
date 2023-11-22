@@ -1,25 +1,60 @@
-import  ContactForm  from 'components/ContactForm/ContactForm';
-import { ContactListItem } from 'components/ContactListItem/ContactListItem';
-import  Filter  from 'components/Filter/Filter';
 import './App.module.css';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { contactsFetch } from 'redux/conttacts/contactsSlice';
+import { Suspense, lazy, useEffect } from 'react';
+import { refreshThunk } from 'redux/users/userSlice';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import Loader from 'components/Loader/Loader';
+import Navigation from 'components/Navigation/Navigation';
+import RestrictedRoute from 'components/RestrictedRoute/RestrictedRoute';
+import PrivateRoute from 'components/PrivateRoute/PrivateRoute';
+
+const HomePage = lazy(() => import('pages/homePage'));
+const RegisterPage = lazy(() => import('pages/registerPage'));
+const LoginPage = lazy(() => import('pages/loginPage'));
+const ContactsPage = lazy(() => import('pages/contactsPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(contactsFetch());
+    dispatch(refreshThunk());
   }, [dispatch]);
   return (
     <>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <ContactListItem />
+      <Navigation />
+      <>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/register"
+              element={
+                <RestrictedRoute>
+                  <RegisterPage />
+                </RestrictedRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <RestrictedRoute>
+                  <LoginPage />
+                </RestrictedRoute>
+              }
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute>
+                  <ContactsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </Suspense>
+      </>
     </>
   );
-}
+};
 
 export default App;

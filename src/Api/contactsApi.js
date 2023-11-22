@@ -1,8 +1,4 @@
-import axios from 'axios';
-
-const contactsInstance = axios.create({
-  baseURL: 'https://6556457284b36e3a431f7d7f.mockapi.io/',
-});
+import { contactsInstance } from './userApi';
 
 export const getContacts = async () => {
   const { data } = await contactsInstance.get('/contacts');

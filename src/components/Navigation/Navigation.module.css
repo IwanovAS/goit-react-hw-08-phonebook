@@ -1,0 +1,24 @@
+.header {
+  border: 1px solid black;
+}
+.list {
+  display: flex;
+  list-style: none;
+}
+.navLink {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.navLink.active {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: rgb(70, 70, 245);
+  color: azure;
+}
